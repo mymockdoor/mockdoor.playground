@@ -1,0 +1,3 @@
+[submodule "mockdoor"]
+	path = mockdoor
+	url = https://github.com/mymockdoor/mockdoor.git

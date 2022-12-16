@@ -1,0 +1,8 @@
+@inject IJSRuntime JsRuntime
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+       await JsRuntime.InvokeVoidAsync("logintobff");
+    }
+}

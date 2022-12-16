@@ -1,0 +1,65 @@
+[
+  {
+    "Id": 1,
+    "Name": "Voice assistant",
+    "Description": "A chocolate teapot",
+    "Price": 79.99,
+    "ImageUrl": "https://localhost:7125/images/image-1.jpg"
+  },
+  {
+    "Id": 2,
+    "Name": "Quad drone",
+    "Description": "A Quad blade drone for indoor use only",
+    "Price": 50.95,
+    "ImageUrl": "https://localhost:7125/images/image-2.jpg"
+  },
+  {
+    "Id": 3,
+    "Name": "Michael kors watch",
+    "Description": "A Michael Kors analogue watch",
+    "Price": 100.95,
+    "ImageUrl": "https://localhost:7125/images/image-3.jpg"
+  },
+  {
+    "Id": 4,
+    "Name": "K240 Headphones",
+    "Description": "Premium stereo headphones. Model K420",
+    "Price": 150.00,
+    "ImageUrl": "https://localhost:7125/images/image-4.jpg"
+  },
+  {
+    "Id": 5,
+    "Name": "Premium drone",
+    "Description": "Premium drone for outdoor use only with 1080p camera",
+    "Price": 550.00,
+    "ImageUrl": "https://localhost:7125/images/image-5.jpg"
+  },
+  {
+    "Id": 6,
+    "Name": "Fujifilm camera",
+    "Description": "Premium Fujifilm camera X-T10 addition",
+    "Price": 250.00,
+    "ImageUrl": "https://localhost:7125/images/image-6.jpg"
+  },
+  {
+    "Id": 7,
+    "Name": "Miniature trolloy",
+    "Description": "Novelty, mini shopping trollow",
+    "Price": 4.99,
+    "ImageUrl": "https://localhost:7125/images/image-7.jpg"
+  },
+  {
+    "Id": 8,
+    "Name": "Camera lens",
+    "Description": "Camera accessories, includes 1 len and other parts",
+    "Price": 34.99,
+    "ImageUrl": "https://localhost:7125/images/image-8.jpg"
+  },
+  {
+    "Id": 9,
+    "Name": "Xbox 360 controller",
+    "Description": "USB Xbox 360 controller. compatible with windows 7 or newer",
+    "Price": 14.99,
+    "ImageUrl": "https://localhost:7125/images/image-9.jpg"
+  }
+]

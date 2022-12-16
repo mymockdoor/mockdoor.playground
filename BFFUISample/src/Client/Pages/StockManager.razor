@@ -1,0 +1,66 @@
+﻿@page "/stock-manager"
+
+@using Blazor6.Shared
+@using Blazor6.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@inject HttpClient Http
+
+@attribute [Authorize]
+
+<PageTitle>Stock Manager</PageTitle>
+
+<h1>Stock manager</h1>
+
+@if (products == null)
+{
+    <p>loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Stock</th>
+            <th>Command(s)</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var productItem in products)
+        {
+            <tr>
+                <td>@productItem.Id</td>
+                <td>@productItem.Name</td>
+                <td><RadzenNumeric TValue="int"  Min="0" Max="1000" Step="1"  @bind-Value="@productItem.Stock" /></td>
+                <td><RadzenButton Text="Update" Click="@(() => UpdateStock(productItem))" /></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <h2>@error</h2>
+}
+
+@code {
+    private ProductDto[]? products;
+    string error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Http.GetFromJsonAsync<ProductDto[]>("api/storeapi/store");
+    }
+
+    private async Task UpdateStock(ProductDto item)
+    {
+        var response  = await Http.PostAsJsonAsync<StockItem>("api/stockapi/stock/setstock", new StockItem() { ProductId = item.Id, StockLeft = item.Stock});
+
+        if (!response.IsSuccessStatusCode)
+        {
+            error = response.StatusCode.ToString();
+        }
+    }
+}

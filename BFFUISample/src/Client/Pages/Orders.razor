@@ -1,0 +1,126 @@
+@page "/orders"
+
+@using Blazor6.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1>My Orders</h1>
+
+@if (orders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Status</th>
+                <th>Order Date</th>
+                <th>Due for delivery</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+                <th>Commands</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.ProductId</td>
+                    <td>@products.First(p=> p.Id ==order.ProductId).Name</td>
+                    <td><h3>@order.ProcessStatus.ToString()</h3></td>
+                    <td>@order.OrderPlacedAt.ToString()</td>
+                    <td>@order.DueDate.ToString()</td>
+                    <td>@order.Quantity</td>
+                    <td>£@order.Price</td>
+                    <td><h6>@((order.Price * order.Quantity).ToString("£0.00"))</h6></td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <RadzenButton class="mb-2" Text="Reset Order Progress" Size="ButtonSize.ExtraSmall" Click="@(() => ResetOrder(order))"/>
+                            <RadzenButton class="mb-2" Text="Progress Order" Size="ButtonSize.ExtraSmall" Click="@(() => ProgressOrder(order))"/>
+                            <RadzenButton Text="Delete Order" Size="ButtonSize.ExtraSmall" Click="@(() => DeleteOrder(order))"/>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <h2>@error</h2>
+}
+
+@code {
+    private List<OrderProcessItem> orders;
+    private List<ProductOrderRowDto> products;
+
+    string error = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await Http.GetFromJsonAsync<List<OrderProcessItem>>($"api/ordersapi/orderprocessor/allcurrentuser");
+        
+        var productsResponse = await Http.GetFromJsonAsync<ProductDto[]>("api/storeapi/store");
+
+        products = productsResponse.Select(pr => new ProductOrderRowDto(pr)).ToList();
+    }
+
+    private async Task ResetOrder(OrderProcessItem order)
+    {
+        var response = await Http.PostAsync($"api/ordersapi/orderprocessor/resetorder/{order.OrderId}", null);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var updatedOrder = await response.Content.ReadFromJsonAsync<OrderProcessItem>();
+
+            var existingOrder = orders.First(o => o.OrderId == updatedOrder.OrderId);
+
+            existingOrder.ProcessStatus = updatedOrder.ProcessStatus;
+        }
+        else
+        {
+            error = response.StatusCode.ToString();
+        }
+    }
+
+    private async Task ProgressOrder(OrderProcessItem order)
+    {
+        var response = await Http.PostAsync($"api/ordersapi/orderprocessor/progressorder/{order.OrderId}", null);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var updatedOrder = await response.Content.ReadFromJsonAsync<OrderProcessItem>();
+
+            var existingOrder = orders.First(o => o.OrderId == updatedOrder.OrderId);
+
+            existingOrder.ProcessStatus = updatedOrder.ProcessStatus;
+        }
+        else
+        {
+            error = response.StatusCode.ToString();
+        }
+    }
+
+    private async Task DeleteOrder(OrderProcessItem order)
+    {
+        var response = await Http.DeleteAsync($"api/ordersapi/orderprocessor/{order.OrderId}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            orders.Remove(order);
+        }
+        else
+        {
+            error = response.StatusCode.ToString();
+        }
+    }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "ProductId": 1,
+    "StockLeft": 22
+  },
+  {
+    "ProductId": 2,
+    "StockLeft": 30
+  },
+  {
+    "ProductId": 3,
+    "StockLeft": 10
+  },
+  {
+    "ProductId": 4,
+    "StockLeft": 11
+  },
+  {
+    "ProductId": 5,
+    "StockLeft": 13
+  },
+  {
+    "ProductId": 6,
+    "StockLeft": 7
+  },
+  {
+    "ProductId": 7,
+    "StockLeft": 3
+  },
+  {
+    "ProductId": 8,
+    "StockLeft": 300
+  },
+  {
+    "ProductId": 9,
+    "StockLeft": 35
+  }
+]

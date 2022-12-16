@@ -1,0 +1,92 @@
+﻿@page "/product-list"
+
+@using Blazor6.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@attribute [Authorize]
+
+<PageTitle>Products</PageTitle>
+
+<h1>Products list</h1>
+
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Image Url</th>
+                <th>Buy?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productItem in products)
+            {
+                <tr>
+                    <td>@productItem.Id</td>
+                    <td>@productItem.Name</td>
+                    <td>@productItem.Description</td>
+                    <td>£@productItem.Price</td>
+                    <td>@productItem.Stock</td>
+                    <td><RadzenImage Path="@productItem.ImageUrl" Style="width: 200px;" /></td>
+                    <td>
+                        <RadzenDropDown Data="@Enumerable.Range(0, productItem.Stock + 1)" Disabled="@(productItem.Stock == 0)" Value="@productItem.Quantity" TValue="int" Change="@(args => productItem.Quantity = (int)args)" />
+                        
+                        <RadzenButton Text="Order" Disabled="@(productItem.Quantity == 0)" Click="@(() => PlaceOrder(productItem))" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <h2>@error</h2>
+}
+
+@code {
+    private List<ProductOrderRowDto> products;
+
+    string error = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var productsResponse = await Http.GetFromJsonAsync<ProductDto[]>("api/storeapi/store");
+
+        products = productsResponse.Select(pr => new ProductOrderRowDto(pr)).ToList();
+    }
+
+    private async Task PlaceOrder(ProductOrderRowDto product)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var response = await Http.PostAsJsonAsync("api/storeapi/store/order", new ProductOrder()
+        {
+            Quantity = product.Quantity,
+            UserId = int.Parse(authState.User.Claims.First(c=>c.Type.Equals("sub")).Value),
+            ProductId = product.Id
+        });
+
+        if (!response.IsSuccessStatusCode)
+        {
+            error = response.StatusCode.ToString();
+        }
+        else
+        {
+            product.Stock -= product.Quantity;
+            product.Quantity = 0;
+            StateHasChanged();
+        }
+    }
+}
