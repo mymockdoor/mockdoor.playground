@@ -39,7 +39,7 @@ to run with mockdoor pre configured
 open your browser to [http://localhost:8000](http://localhost:8000) to see a list of the running microservices.
 
 - You can open Mockdoor at [http://localhost:44304/dev/mockdoor/](http://localhost:44304/dev/mockdoor/) or using the dashboard
-- You can open the demo store at [https://localhost:5006/(https://localhost:5006/) or using the dashboard
+- You can open the demo store at [https://localhost:5006/](https://localhost:5006/) or using the dashboard
 - you can open the live dashboard demo at [https://localhost:7094/](https://localhost:7094/) or using the dashboard
 
 # Using the demo solution file
