@@ -1,6 +1,8 @@
+using System.Text;
 using Blazor6.Shared.Models;
 using IdentityModel.Client;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace StockApi.Services;
 
@@ -57,9 +59,8 @@ public class StockService
 
         if (product == null)
             return -1;
-
-        _client.SetBearerToken(await _authService.GetAccessTokenForOrderProcessorApiAsync());
-        var response = await _client.PostAsJsonAsync($"{_configuration.ServiceUrls.OrderProcessorServiceUrl}/orderprocessor/add", new OrderProcessItem()
+        
+        var content = new StringContent(JsonConvert.SerializeObject(new OrderProcessItem()
         {
             OrderId = Guid.NewGuid(),
             ProductId =order.ProductId,
@@ -69,7 +70,10 @@ public class StockService
             OrderPlacedAt = DateTime.Now,
             ProcessStatus = ProcessStatus.Picking,
             DueDate = DateTime.Now.AddDays(7)
-        });
+        }), Encoding.Default, "application/json");
+            
+        _client.SetBearerToken(await _authService.GetAccessTokenForOrderProcessorApiAsync());
+        await _client.PostAsync($"{_configuration.ServiceUrls.OrderProcessorServiceUrl}/orderprocessor/add", content);
         
         return stockItem.StockLeft;
     }

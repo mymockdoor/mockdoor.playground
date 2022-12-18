@@ -1,7 +1,9 @@
+using System.Text;
 using Blazor6.Shared;
 using Blazor6.Shared.Models;
 using IdentityModel.Client;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace StoreApi.Services;
 
@@ -78,12 +80,16 @@ public class ProductService
         _products.RemoveAll(p => p.Id == id);
     }
 
+   
+
     public async Task<double> PlaceOrderAsync(ProductOrder order)
     {
         var product = await GetAsync(order.ProductId);
         
         _client.SetBearerToken(await _authService.GetAccessTokenForStockApiAsync());
-        await _client.PostAsJsonAsync($"{_configuration.ServiceUrls.StockServiceUrl}/stock/order", order);
+        var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.Default, "application/json");
+            
+        await _client.PostAsync($"{_configuration.ServiceUrls.StockServiceUrl}/stock/order", content);
 
         return product.Price * order.Quantity;
     }
