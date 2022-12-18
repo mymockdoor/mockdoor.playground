@@ -1,5 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel.Client;
+using Microsoft.Extensions.Options;
+using TestWebApi.Models;
 
 namespace TestWebApi;
 
@@ -10,10 +12,12 @@ public class AuthService
     private static string _cachedStockApiAccessToken = null;
     private static string _cachedStoreApiAccessToken = null;
     private static string _cachedOrdersApiAccessToken = null;
+    private readonly Configuration _configuration;
 
-    public AuthService(HttpClient client)
+    public AuthService(HttpClient client, IOptions<Configuration> options)
     {
         _client = client;
+        _configuration = options.Value;
     }
 
     public async Task<string> GetAccessTokenForOrdersApiAsync()
@@ -31,7 +35,7 @@ public class AuthService
         }
         
         Console.WriteLine("Renewing orders token...");
-        var disco = await _client.GetDiscoveryDocumentAsync("https://localhost:5001");
+        var disco = await _client.GetDiscoveryDocumentAsync(_configuration.ServiceUrls.IdentityServiceUrl);
         
         if (disco.IsError)
         {
@@ -74,7 +78,7 @@ public class AuthService
         }
         
         Console.WriteLine("Renewing stock token...");
-        var disco = await _client.GetDiscoveryDocumentAsync("https://localhost:5001");
+        var disco = await _client.GetDiscoveryDocumentAsync(_configuration.ServiceUrls.IdentityServiceUrl);
         
         if (disco.IsError)
         {
@@ -117,7 +121,7 @@ public class AuthService
         }
         
         Console.WriteLine("Renewing store token...");
-        var disco = await _client.GetDiscoveryDocumentAsync("https://localhost:5001");
+        var disco = await _client.GetDiscoveryDocumentAsync(_configuration.ServiceUrls.IdentityServiceUrl);
         
         if (disco.IsError)
         {
