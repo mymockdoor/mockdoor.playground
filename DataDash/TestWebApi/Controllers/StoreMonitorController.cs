@@ -3,6 +3,7 @@ using DataDash.Models;
 using Microsoft.AspNetCore.Mvc;
 using TestWebApi.Models;
 using IdentityModel.Client;
+using Microsoft.Extensions.Options;
 
 namespace TestWebApi.Controllers
 {
@@ -13,11 +14,13 @@ namespace TestWebApi.Controllers
 
         private readonly HttpClient _client;
         private readonly AuthService _authService;
+        private readonly Configuration _configuration;
 
-        public StoreMonitorController(HttpClient client, AuthService authService)
+        public StoreMonitorController(HttpClient client, AuthService authService, IOptions<Configuration> configurationOptions)
         {
             _client = client;
             _authService = authService;
+            _configuration = configurationOptions.Value;
         }
 
         [HttpGet]
@@ -40,7 +43,7 @@ namespace TestWebApi.Controllers
         {
             _client.SetBearerToken(await _authService.GetAccessTokenForStoreApiAsync());
 
-            var stocksResponse = await _client.GetAsync("https://localhost:7125/store");
+            var stocksResponse = await _client.GetAsync($"{_configuration.StoreApiUrl}/store");
 
             var products = new List<ProductDto>();
             if (stocksResponse.IsSuccessStatusCode)
@@ -88,7 +91,7 @@ namespace TestWebApi.Controllers
         {
             _client.SetBearerToken(await _authService.GetAccessTokenForStockApiAsync());
 
-            var stocksResponse = await _client.GetAsync("https://localhost:7089/stock");
+            var stocksResponse = await _client.GetAsync($"{_configuration.StockApiUrl}/stock");
 
             var stocks = new List<StockItem>();
             if (stocksResponse.IsSuccessStatusCode)
@@ -135,7 +138,7 @@ namespace TestWebApi.Controllers
         {
             _client.SetBearerToken(await _authService.GetAccessTokenForOrdersApiAsync());
 
-            var ordersResponse = await _client.GetAsync("https://localhost:7054/orderprocessor");
+            var ordersResponse = await _client.GetAsync($"{_configuration.OrderProcessorApiUrl}/orderprocessor");
             var orders = new List<OrderProcessItem>();
             if (ordersResponse.IsSuccessStatusCode)
             {

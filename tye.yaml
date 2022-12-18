@@ -1,0 +1,62 @@
+name: mockdoor.playground
+services:
+- name: mockdoor-server
+  project: mockdoor/MockDoor/Server/MockDoor.Server.csproj
+  replicas: 1
+  bindings:
+      - port: 44305
+        protocol: https
+- name: shopping-store-ui
+  project: BFFUISample/src/Server/Blazor6.Server.csproj
+  replicas: 1
+  bindings:
+    - port: 5006    
+      protocol: https
+- name: shopping-store-api
+  project: BFFUISample/src/StoreApi/StoreApi.csproj
+  replicas: 1
+  bindings:
+    - port: 7125
+      protocol: https
+- name: shopping-stock-api
+  project: BFFUISample/src/StockApi/StockApi.csproj
+  replicas: 1
+  bindings:
+    - port: 7089
+      protocol: https
+- name: shopping-order-processor-api
+  project: BFFUISample/src/OrderProcessor/OrderProcessorApi/OrderProcessorApi.csproj
+  replicas: 1
+  bindings:
+    - port: 7054
+      protocol: https
+- name: identity-server
+  project: IdentityServerSample/src/IdentityServer/IdentityServer.csproj
+  replicas: 1
+  bindings:
+    - port: 5001
+      protocol: https
+- name: user-store
+  project: IdentityServerSample/src/UserStore/UserStore.csproj
+  replicas: 1
+  bindings:
+    - port: 7274
+      protocol: https
+- name: user-permission
+  project: IdentityServerSample/src/UserPermissions/UserPermissions/UserPermissions.csproj
+  replicas: 1
+  bindings:
+    - port: 7087
+      protocol: https
+- name: data-dash-ui
+  project: DataDash/DataDash/DataDash.csproj
+  replicas: 1
+  bindings:
+    - port: 7094
+      protocol: https
+- name: data-dash-api
+  project: DataDash/TestWebApi/TestWebApi.csproj
+  replicas: 1
+  bindings:
+    - port: 5013
+      protocol: http

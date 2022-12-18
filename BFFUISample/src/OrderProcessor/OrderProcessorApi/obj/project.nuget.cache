@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "+yz2iSzjQAyvSjVzFFUyiLwvS5OVKUiqH+uu2UJGeXw3DKAKU2mgcoC2HZpyv4dLtalzT0FcXNxOdkARUg/gLw==",
-  "success": false,
+  "dgSpecHash": "tKmbkYooApnqG7qHOpTJNKv8cTLcfve0ftiuDk94V9oH7/iWGFHr66vt8m96Io4NV+OtpOQBkYhpzuS+1L8N/Q==",
+  "success": true,
   "projectFilePath": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/src/OrderProcessor/OrderProcessorApi/OrderProcessorApi.csproj",
   "expectedPackageFiles": [
     "/home/barry/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/6.0.1/microsoft.aspnetcore.authentication.jwtbearer.6.0.1.nupkg.sha512",
@@ -27,15 +27,5 @@
     "/home/barry/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/home/barry/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project '/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

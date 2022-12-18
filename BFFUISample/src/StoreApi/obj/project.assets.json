@@ -998,7 +998,6 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj",
       "Blazor6.Shared >= 1.0.0",
       "IdentityModel >= 6.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.1",
@@ -1032,9 +1031,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj": {
-              "projectPath": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj"
-            },
             "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/src/Shared.Authentication/Shared.Authentication.csproj": {
               "projectPath": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/src/Shared.Authentication/Shared.Authentication.csproj"
             },
@@ -1093,16 +1089,5 @@
         "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.403/RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project '/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  }
 }

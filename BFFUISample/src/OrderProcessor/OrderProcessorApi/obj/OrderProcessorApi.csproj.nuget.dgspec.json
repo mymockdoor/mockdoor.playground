@@ -26,9 +26,6 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj": {
-                "projectPath": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/Shared.Authentication/Shared.Authentication.csproj"
-              },
               "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/src/Shared.Authentication/Shared.Authentication.csproj": {
                 "projectPath": "/home/barry/Development/OfficialMockdoor/Mockdoor.Playground/BFFUISample/src/Shared.Authentication/Shared.Authentication.csproj"
               },
