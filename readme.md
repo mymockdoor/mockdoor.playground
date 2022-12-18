@@ -43,3 +43,21 @@ open your browser to [http://localhost:8000](http://localhost:8000) to see a lis
 - you can open the live dashboard demo at [https://localhost:7094/](https://localhost:7094/) or using the dashboard
 
 # Using the demo solution file
+
+- Open the FullDemoSolution.sln file in your IDE of choice
+- Set multiple start up projects with the following startup projects
+  
+  - mockdoor/MockDoor/Server/MockDoor.Server.csproj : this is Mockdoor
+  - BFFUISample/src/Server/Blazor6.Server.csproj : this is the store UI
+  - BFFUISample/src/StoreApi/StoreApi.csproj : this is the stores API
+  - BFFUISample/src/StockApi/StockApi.csproj : this is the stock API
+  - BFFUISample/src/OrderProcessor/OrderProcessorApi/OrderProcessorApi.csproj : this is the order processing api
+  - IdentityServerSample/src/IdentityServer/IdentityServer.csproj : this is the main Identity Server (Authentication handler)
+  - IdentityServerSample/src/UserStore/UserStore.csproj : this is the user store API
+  - IdentityServerSample/src/UserPermissions/UserPermissions/UserPermissions.csproj : this is the permissions API
+  - DataDash/DataDash/DataDash.csproj : this is the UI for the live dashboard
+  - DataDash/TestWebApi/TestWebApi.csproj : this is the API for the live dashboard
+- Start all projects
+
+# The architecture
+![Architecture Diagram](./Architecture%20diagram.jpg)
