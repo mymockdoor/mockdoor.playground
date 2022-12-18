@@ -1,50 +1,53 @@
 using Duende.IdentityServer;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
-using IdentityServerHost;
+using IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using System.Reflection;
 
 namespace IdentityServer;
 
 internal static class HostingExtensions
 {
-    private static void InitializeDatabase(IApplicationBuilder app)
+    private static void InitializeDatabase(IApplicationBuilder app, IdentityConfiguration identityConfiguration)
     {
         using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
         {
             serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
 
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+            
             context.Database.Migrate();
-            if (!context.Clients.Any())
+            
+            foreach (var client in Config.Clients(identityConfiguration))
             {
-                foreach (var client in Config.Clients)
+                if (context.Clients.Any(c => c.ClientId == client.ClientId))
                 {
-                    context.Clients.Add(client.ToEntity());
+                    context.Clients.Remove(context.Clients.First(c => c.ClientId == client.ClientId));
                 }
-                context.SaveChanges();
+                context.Clients.Add(client.ToEntity());
             }
 
-            if (!context.IdentityResources.Any())
+            foreach (var resource in Config.IdentityResources)
             {
-                foreach (var resource in Config.IdentityResources)
+                if (context.IdentityResources.Any(c => c.Name == resource.Name))
                 {
-                    context.IdentityResources.Add(resource.ToEntity());
+                    context.IdentityResources.Remove(context.IdentityResources.First(c => c.Name == resource.Name));
                 }
-                context.SaveChanges();
+                context.IdentityResources.Add(resource.ToEntity());
             }
-
-            if (!context.ApiScopes.Any())
+            
+            foreach (var resource in Config.ApiScopes)
             {
-                foreach (var resource in Config.ApiScopes)
+                if (context.ApiScopes.Any(c => c.Name == resource.Name))
                 {
-                    context.ApiScopes.Add(resource.ToEntity());
+                    context.ApiScopes.Remove(context.ApiScopes.First(c => c.Name == resource.Name));
                 }
-                context.SaveChanges();
+                context.ApiScopes.Add(resource.ToEntity());
             }
+            context.SaveChanges();
         }
     }
 
@@ -96,7 +99,7 @@ internal static class HostingExtensions
         return builder.Build();
     }
     
-    public static WebApplication ConfigurePipeline(this WebApplication app)
+    public static WebApplication ConfigurePipeline(this WebApplication app, IdentityConfiguration identityConfiguration)
     { 
         app.UseSerilogRequestLogging();
         if (app.Environment.IsDevelopment())
@@ -104,7 +107,7 @@ internal static class HostingExtensions
             app.UseDeveloperExceptionPage();
         }
 
-        InitializeDatabase(app);
+        InitializeDatabase(app, identityConfiguration);
 
         app.UseStaticFiles();
         app.UseRouting();

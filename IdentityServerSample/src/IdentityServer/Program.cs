@@ -22,11 +22,13 @@ try
     builder.Services.Configure<IdentityConfiguration>(builder.Configuration.GetSection("Authentication"));
     builder.Services.AddScoped<UserStoreAuthenticationService>();
     builder.Services.AddHttpClient();
-    
+
+    IdentityConfiguration identityConfiguration = new IdentityConfiguration();
+    builder.Configuration.Bind("Authentication", identityConfiguration);
     
     var app = builder
         .ConfigureServices()
-        .ConfigurePipeline();
+        .ConfigurePipeline(identityConfiguration);
     
     app.Run();
 }

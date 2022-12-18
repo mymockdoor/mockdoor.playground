@@ -1,6 +1,7 @@
 ﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 using IdentityModel;
+using IdentityServer.Models;
 
 namespace IdentityServer;
 
@@ -27,7 +28,7 @@ public static class Config
         { 
         };
 
-    public static IEnumerable<Client> Clients =>
+    public static IEnumerable<Client> Clients(IdentityConfiguration identityConfiguration) =>
         new List<Client> 
         {
             // machine-to-machine client (from quickstart 1)
@@ -99,10 +100,10 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Code,
 
                 // where to redirect after login
-                RedirectUris = { "https://localhost:5006/signin-oidc" },
+                RedirectUris = { $"{identityConfiguration.StoreDemoUrl}/signin-oidc" },
 
                 // where to redirect after logout
-                PostLogoutRedirectUris = { "https://localhost:5006/signout-callback-oidc" },
+                PostLogoutRedirectUris = { $"{identityConfiguration.StoreDemoUrl}/signout-callback-oidc" },
                 
                 AllowOfflineAccess = true,
                 AlwaysIncludeUserClaimsInIdToken = true,

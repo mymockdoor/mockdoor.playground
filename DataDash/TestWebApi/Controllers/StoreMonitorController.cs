@@ -43,7 +43,7 @@ namespace TestWebApi.Controllers
         {
             _client.SetBearerToken(await _authService.GetAccessTokenForStoreApiAsync());
 
-            var stocksResponse = await _client.GetAsync($"{_configuration.StoreApiUrl}/store");
+            var stocksResponse = await _client.GetAsync($"{_configuration.ServiceUrls.StoreServiceUrl}/store");
 
             var products = new List<ProductDto>();
             if (stocksResponse.IsSuccessStatusCode)
@@ -91,7 +91,7 @@ namespace TestWebApi.Controllers
         {
             _client.SetBearerToken(await _authService.GetAccessTokenForStockApiAsync());
 
-            var stocksResponse = await _client.GetAsync($"{_configuration.StockApiUrl}/stock");
+            var stocksResponse = await _client.GetAsync($"{_configuration.ServiceUrls.StockServiceUrl}/stock");
 
             var stocks = new List<StockItem>();
             if (stocksResponse.IsSuccessStatusCode)
@@ -138,7 +138,7 @@ namespace TestWebApi.Controllers
         {
             _client.SetBearerToken(await _authService.GetAccessTokenForOrdersApiAsync());
 
-            var ordersResponse = await _client.GetAsync($"{_configuration.OrderProcessorApiUrl}/orderprocessor");
+            var ordersResponse = await _client.GetAsync($"{_configuration.ServiceUrls.OrderProcessorServiceUrl}/orderprocessor");
             var orders = new List<OrderProcessItem>();
             if (ordersResponse.IsSuccessStatusCode)
             {
