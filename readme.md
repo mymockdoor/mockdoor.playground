@@ -59,5 +59,5 @@ open your browser to [http://localhost:8000](http://localhost:8000) to see a lis
   - DataDash/TestWebApi/TestWebApi.csproj : this is the API for the live dashboard
 - Start all projects
 
-# The architecture
+# The Playground Architecture
 ![Architecture Diagram](./Architecture%20diagram.jpg)
