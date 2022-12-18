@@ -42,6 +42,9 @@ open your browser to [http://localhost:8000](http://localhost:8000) to see a lis
 - You can open the demo store at [https://localhost:5006/](https://localhost:5006/) or using the dashboard
 - you can open the live dashboard demo at [https://localhost:7094/](https://localhost:7094/) or using the dashboard
 
+- Once the UI is open you can login in the top right, the logins are listed under the login area. For an admin it is admin:alice and for a customer it is customer:alice
+- Note: this are known bugs in the store UI when navigating to pages before login in. This is to be fixed in the future
+
 # Using the demo solution file
 
 - Open the FullDemoSolution.sln file in your IDE of choice
@@ -58,6 +61,13 @@ open your browser to [http://localhost:8000](http://localhost:8000) to see a lis
   - DataDash/DataDash/DataDash.csproj : this is the UI for the live dashboard
   - DataDash/TestWebApi/TestWebApi.csproj : this is the API for the live dashboard
 - Start all projects
+
+- You can open Mockdoor at [http://localhost:44304/dev/mockdoor/](http://localhost:44304/dev/mockdoor/) 
+- You can open the demo store at [https://localhost:5006/](https://localhost:5006/) 
+- you can open the live dashboard demo at [https://localhost:7094/](https://localhost:7094/) 
+
+- Once the UI is open you can login in the top right, the logins are listed under the login area. For an admin it is admin:alice and for a customer it is customer:alice
+- Note: this are known bugs in the store UI when navigating to pages before login in. This is to be fixed in the future
 
 # The Playground Architecture
 ![Architecture Diagram](./Architecture%20diagram.jpg)
