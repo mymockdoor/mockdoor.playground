@@ -10,7 +10,7 @@ services:
   project: BFFUISample/src/Server/Blazor6.Server.csproj
   replicas: 1
   env_file:
-    - ./type-shared.env
+    - ./tye-shared.env
   bindings:
     - port: 5006    
       protocol: https
@@ -18,7 +18,7 @@ services:
   project: BFFUISample/src/StoreApi/StoreApi.csproj
   replicas: 1
   env_file:
-    - ./type-shared.env
+    - ./tye-shared.env
   bindings:
     - port: 7125
       protocol: https
@@ -26,7 +26,7 @@ services:
   project: BFFUISample/src/StockApi/StockApi.csproj
   replicas: 1
   env_file:
-    - ./type-shared.env
+    - ./tye-shared.env
   bindings:
     - port: 7089
       protocol: https
@@ -34,7 +34,7 @@ services:
   project: BFFUISample/src/OrderProcessor/OrderProcessorApi/OrderProcessorApi.csproj
   replicas: 1
   env_file:
-    - ./type-shared.env
+    - ./tye-shared.env
   bindings:
     - port: 7054
       protocol: https
@@ -78,7 +78,7 @@ services:
   project: DataDash/TestWebApi/TestWebApi.csproj
   replicas: 1
   env_file:
-    - ./type-shared.env
+    - ./tye-shared.env
   bindings:
     - port: 5013
       protocol: http
