@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+/IdentityServerSample/src/IdentityServer/Duende.IdentityServer.Quickstart.EntityFramework.db-shm
+/.tye/process_store

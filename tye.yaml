@@ -7,7 +7,7 @@ services:
     - name: DeploymentConfiguration__PathBase
       value: /dev/mockdoor/
     - name: DeploymentConfiguration__SeedOnStartup
-      value: Data/SampleSeedData.json
+      value: Data/DemoSampleData.json
     bindings:
       - port: 44304
         protocol: https
