@@ -11,12 +11,12 @@ services:
     bindings:
       - port: 44304
         protocol: https
-        routes: [ /dev/mockdoor/ ]        
+        routes: [ /dev/mockdoor/ ]         
   - name: shopping-store-ui
     project: BFFUISample/src/Server/Blazor6.Server.csproj
     replicas: 1
     env_file:
-      - ./tye-shared.env
+      - ./tye-mockdoor-shared.env
     bindings:
       - port: 5006
         protocol: https
@@ -24,7 +24,7 @@ services:
     project: BFFUISample/src/StoreApi/StoreApi.csproj
     replicas: 1
     env_file:
-      - ./tye-shared.env
+      - ./tye-mockdoor-shared.env
     bindings:
       - port: 7125
         protocol: https
@@ -32,7 +32,7 @@ services:
     project: BFFUISample/src/StockApi/StockApi.csproj
     replicas: 1
     env_file:
-      - ./tye-shared.env
+      - ./tye-mockdoor-shared.env
     bindings:
       - port: 7089
         protocol: https
@@ -40,7 +40,7 @@ services:
     project: BFFUISample/src/OrderProcessor/OrderProcessorApi/OrderProcessorApi.csproj
     replicas: 1
     env_file:
-      - ./tye-shared.env
+      - ./tye-mockdoor-shared.env
     bindings:
       - port: 7054
         protocol: https
@@ -49,7 +49,7 @@ services:
     replicas: 1
     env:
       - name: Authentication__UserStoreUrl
-        value: https://localhost:7274
+        value: https://localhost:44304/dev/mockdoor/api/mock/gmt/auth/userstore/demo
       - name: Authentication__StoreDemoUrl
         value: https://localhost:5006
     bindings:
@@ -72,9 +72,9 @@ services:
     replicas: 1
     env:
       - name: Pages__default
-        value: UrlToPoll=http://localhost:5013/StoreMonitor;IntervalBetweenUpdatesInSeconds=2;HttpAuthHeaderScheme=bearer;HttpAuthHeaderValue=sfghwrewfrgrtt2
+        value: UrlToPoll=https://localhost:44304/dev/mockdoor/api/mock/gmt/monitor/datadashapi/demo/StoreMonitor;IntervalBetweenUpdatesInSeconds=2;HttpAuthHeaderScheme=bearer;HttpAuthHeaderValue=sfghwrewfrgrtt2
       - name: Pages__data
-        value: UrlToPoll=http://localhost:5013/Test;IntervalBetweenUpdatesInSeconds=2;HttpAuthHeaderScheme=bearer;HttpAuthHeaderValue=sfghwrewfrgrtt2w
+        value: UrlToPoll=https://localhost:44304/dev/mockdoor/api/mock/gmt/monitor/datadashapi/demo/Test;IntervalBetweenUpdatesInSeconds=2;HttpAuthHeaderScheme=bearer;HttpAuthHeaderValue=sfghwrewfrgrtt2w
       - name: Pages__pageName
         value: ms=default,data,data,pageName
     bindings:
@@ -84,7 +84,7 @@ services:
     project: DataDash/TestWebApi/TestWebApi.csproj
     replicas: 1
     env_file:
-      - ./tye-shared.env
+      - ./tye-mockdoor-shared.env
     bindings:
       - port: 5013
         protocol: http
