@@ -28,6 +28,8 @@ to install run this command (for full instructions see [https://github.com/dotne
 
 ```  dotnet tool install -g Microsoft.Tye --version "0.11.0-alpha.22111.1" ```
 
+Note: Avast and possibly other Anti virus software,have been known to block the install of Microsoft Tye. It is an official microsoft project and you can verify it for yourself if desired in the above link on github. If this happens and assuming you are comfortable doing so just set an exclusion for Tye and retry the install.
+
 To start all services using default configuration (not linking up mockdoor)
 
 ``` tye run tye.yaml```
