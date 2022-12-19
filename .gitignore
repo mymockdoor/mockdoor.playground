@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 /IdentityServerSample/src/IdentityServer/Duende.IdentityServer.Quickstart.EntityFramework.db-shm
 /.tye/process_store
+
+.idea/
