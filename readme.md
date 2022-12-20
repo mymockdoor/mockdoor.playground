@@ -73,3 +73,6 @@ open your browser to [http://localhost:8000](http://localhost:8000) to see a lis
 
 # The Playground Architecture
 ![Architecture Diagram](./Architecture%20diagram.jpg)
+
+# Licence
+See licence details [here](LICENCE.md)
