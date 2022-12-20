@@ -71,6 +71,11 @@ open your browser to [http://localhost:8000](http://localhost:8000) to see a lis
 - Once the UI is open you can login in the top right, the logins are listed under the login area. For an admin it is admin:alice and for a customer it is customer:alice
 - Note: this are known bugs in the store UI when navigating to pages before login in. This is to be fixed in the future
 
+# Donate?
+
+<a style="background: #41a2d8;color: #fff;text-decoration: none;font-family: Verdana,sans-serif;display: inline-block;font-size: 16px;padding: 15px 38px;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;box-shadow: 0 1px 0 0 #1f5a89;text-shadow: 0 1px rgba(0, 0, 0, 0.3);" href="https://donorbox.org/mockdoor-development-donations?default_interval=o">Buy me a drink?</a>
+
+
 # The Playground Architecture
 ![Architecture Diagram](./Architecture%20diagram.jpg)
 
